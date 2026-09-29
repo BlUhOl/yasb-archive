@@ -1,0 +1,654 @@
+:root {
+    --font-name-primary: "JetBrainsMono NFP", monospace;
+    --font-name-secondary: "JetBrainsMono NFP", monospace;
+
+    /* Clean System Color Palette */
+    --bg-taskbar: rgba(25, 25, 25, 0.25);
+    --bg-taskbar-menu-primary: rgba(0, 72, 158, 0.25);
+    --bg-primary: rgba(25, 25, 25, 0.25);
+    --bg-secondary: rgba(0, 72, 158, 0.35);
+    --bg-hover: rgba(21, 64, 116, 0.55);
+    --bg-active: #113c70;
+
+    --media-button: #3299dd;
+    --text-primary: #b9e3ff;
+    --text-secondary: #a0a0a0;
+    --accent-color: palette(highlight);
+    --separator-color: rgba(185, 227, 255, 0.2);
+
+    /* System State Colors */
+    --color-good: #4cc864;
+    --color-bad: #e81123;
+    --color-warn: #fbc100;
+
+    --text-small: 11px;
+    --text-normal: 13px;
+    --text-lg: 14px;
+    --text-xl: 16px;
+    --font-normal: 400;
+    --font-bold: 600;
+}
+
+* {
+    font-size: var(--text-normal);
+    color: var(--text-primary);
+    font-weight: var(--font-normal);
+    font-family: var(--font-name-primary);
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+}
+
+.yasb-bar {
+    padding: 0px 10px;
+    margin: 0;
+    background-color: var(--bg-taskbar);
+}
+
+/* Base Widget Styling */
+.widget {
+    padding: 0 5px;
+    margin: 3px 2px;
+    background-color: var(--bg-primary);
+    border-radius: 6px;
+    
+}
+
+.taskbar-widget {
+    padding: 0;
+}
+
+.widget:hover {
+    background-color: var(--bg-hover);
+}
+
+.widget .label {
+    padding: 0;
+    font-family: var(--font-name-primary);
+}
+
+.widget .label span {
+    color: var(--accent-color);
+    margin-right: 4px;
+    font-size: var(--text-normal);
+}
+
+/* Standardized Icon Spacing */
+.battery-widget .icon,
+.notification-widget .icon,
+.media-widget .icon {
+    font-size: 14px;
+    margin-right: 4px;
+}
+
+/* Media Bar */
+.media-widget .label {
+    padding: 2px 5px 2px 0;
+}
+
+.media-widget .btn {
+    color: var(--media-button);
+    padding: 0 6px;
+    min-width: 10px;
+    background-color: transparent;
+    border-radius: 6px;
+    font-family: var(--font-name-primary); /* icon bugfix */
+}
+
+.media-widget .btn:hover {
+    color: var(--text-primary);
+}
+
+.media-widget .btn.play {
+    font-size: var(--text-lg);
+}
+
+.media-widget .btn.disabled,
+.media-widget .btn.disabled:hover {
+    color: var(--separator-color);
+}
+
+/* ==========================================================================
+   UNIFIED MENU STYLING (Home, Calendar, Language, Wi-Fi, Volume, Media)
+   ========================================================================== */
+
+.media-menu,
+.traffic-menu,
+.audio-menu,
+.home-menu,
+.calendar,
+.language-menu,
+.wifi-menu,
+QWidget.wifi-menu,
+QMenu.wifi-menu {
+    background-color: var(--bg-taskbar-menu-primary) !important;
+    border: 1px solid var(--separator-color) !important;
+    border-radius: 6px !important;
+    padding: 6px;
+}
+
+/* Global Menu Hover & Item Defaults */
+.home-menu .menu-item,
+.language-menu .language-item,
+.audio-container .device {
+    border-radius: 4px !important;
+    transition: background-color 0.15s ease;
+}
+
+.home-menu .menu-item:hover,
+.language-menu .language-item:hover,
+.audio-container .device:hover {
+    background-color: var(--bg-hover) !important;
+}
+
+
+/* Tooltip */
+.tooltip {
+    margin-top: 4px;
+    padding: 4px 8px;
+    background-color: var(--bg-hover);
+    border: 1px solid var(--separator-color);
+    color: var(--text-primary);
+    border-radius: 6px;
+}
+
+/* Home Menu */
+.home-widget .icon {
+    font-size: var(--text-lg);
+    padding: 0px 6px !important;
+}
+
+.home-menu .menu-item {
+    padding: 8px 12px;
+    margin: 2px 0;
+    font-size: var(--text-lg);
+}
+
+.home-menu .separator {
+    max-height: 1px;
+    background-color: var(--separator-color);
+    margin: 4px 0;
+}
+
+/* Language Menu */
+.language-menu {
+    min-width: 280px;
+}
+
+.language-menu .header {
+    font-family: var(--font-name-primary);
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    padding: 8px 12px;
+    background-color: transparent;
+    border-bottom: 1px solid var(--separator-color);
+    margin-bottom: 4px;
+}
+
+.language-menu .footer {
+    font-family: var(--font-name-primary);
+    font-size: var(--text-small);
+    font-weight: var(--font-bold);
+    padding: 8px 12px;
+    margin-top: 4px;
+    color: var(--text-secondary);
+    background-color: transparent;
+    border-top: 1px solid var(--separator-color);
+    border-radius: 4px;
+}
+
+.language-menu .footer:hover {
+    background-color: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.language-menu .language-item {
+    padding: 6px 12px;
+    margin: 2px 0;
+}
+
+.language-menu .language-item .icon {
+    font-size: var(--text-normal);
+    margin-right: 6px;
+    color: var(--accent-color);
+}
+
+/* ==========================================================================
+   MEDIA POPUP MENU
+   ========================================================================== */
+.media-menu {
+    min-width: 440px;
+    max-width: 540px;
+}
+
+/* Text sits away from the cover */
+.media-menu .title,
+.media-menu .artist,
+.media-menu .source {
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    margin-left: 10px;
+}
+
+.media-menu .artist {
+    font-size: var(--text-normal);
+    color: var(--text-secondary);
+}
+
+.media-menu .source {
+    font-size: var(--text-small);
+    color: var(--media-button);
+    background-color: var(--bg-hover);
+    border-radius: 6px;
+    padding: 4px 8px;
+    /* margin-top: 10px; */
+}
+
+/* Control buttons */
+.media-menu .btn {
+    font-family: var(--font-name-primary); /* icon bugfix */
+    font-size: var(--text-lg);
+    background-color: transparent;
+    border-radius: 6px;
+    margin: 10px 2px 0 2px;
+    min-width: 40px;
+    max-width: 40px;
+    min-height: 40px;
+    max-height: 40px;
+}
+
+.media-menu .btn.prev {
+    margin-left: 10px;
+}
+
+.media-menu .btn:hover {
+    background-color: var(--bg-hover);
+}
+
+.media-menu .btn.play {
+    background-color: var(--bg-hover);
+    font-size: 20px;
+}
+
+.media-menu .btn.play:hover {
+    background-color: var(--separator-color);
+}
+
+.media-menu .btn.disabled,
+.media-menu .btn.disabled:hover {
+    color: var(--separator-color);
+    background-color: transparent;
+}
+
+.media-menu .playback-time {
+    color: var(--text-secondary);
+    margin-top: 20px;
+    min-width: 100px;
+}
+
+/* Progress bar */
+.media-menu .progress-slider {
+    height: 10px;
+    margin: 10px 4px 14px 4px;
+}
+
+.media-menu .progress-slider::groove {
+    height: 4px;
+    background: var(--separator-color);
+    border-radius: 2px;
+}
+
+.media-menu .progress-slider::groove:hover {
+    height: 6px;
+    background: var(--separator-color);
+}
+
+.media-menu .progress-slider::sub-page {
+    background: var(--accent-color);
+    height: 4px;
+    border-radius: 2px;
+}
+
+/* App volume section */
+.media-menu .app-volume-container {
+    background-color: var(--bg-hover);
+    border-radius: 6px;
+    padding: 8px 6px;
+    margin-left: 10px;
+}
+
+.media-menu .app-volume-container .volume-slider {
+    padding: 0;
+}
+
+.media-menu .app-volume-container .volume-slider::groove {
+    background: var(--separator-color);
+    width: 4px;
+    border-radius: 2px;
+}
+
+.media-menu .app-volume-container .volume-slider::groove:hover {
+    background: var(--separator-color);
+    width: 6px;
+}
+
+.media-menu .app-volume-container .volume-slider::add-page {
+    background: var(--accent-color);
+    border-radius: 2px;
+}
+
+.media-menu .app-volume-container .volume-slider::sub-page {
+    background: var(--separator-color);
+}
+
+.media-menu .app-volume-container .mute-button,
+.media-menu .app-volume-container .unmute-button {
+    font-family: "Segoe Fluent Icons", var(--font-name-primary); /* fixes crossbox glyph */
+    font-size: var(--text-lg);
+    margin-top: 4px;
+    background-color: transparent;
+}
+
+.media-menu .app-volume-container .unmute-button {
+    color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   CALENDAR & CLOCK POPUP (Fully Transparent Grid & Header)
+   ========================================================================== */
+
+.calendar,
+.calendar QWidget,
+.calendar QAbstractItemView,
+.calendar QTableView {
+    background-color: transparent !important;
+}
+
+/* Header bar (Mon, Tue, Wed, Thu, Fri, Sat, Sun) */
+.calendar QHeaderView,
+.calendar QHeaderView::section {
+    background-color: transparent !important;
+    color: var(--accent-color) !important;
+    font-weight: var(--font-bold);
+    border: none;
+    padding: 4px;
+}
+
+/* Calendar Date Table & Cells */
+.calendar .calendar-table,
+.calendar .calendar-table::item,
+.calendar QAbstractItemView::item {
+    background-color: transparent !important;
+    color: var(--text-primary);
+    font-size: var(--text-lg);
+    border-radius: 4px;
+}
+
+.calendar .calendar-table::item:hover,
+.calendar QAbstractItemView::item:hover {
+    background-color: var(--bg-hover) !important;
+}
+
+.calendar .calendar-table::item:selected,
+.calendar QAbstractItemView::item:selected {
+    color: var(--text-primary) !important;
+    background-color: var(--bg-hover) !important;
+    border: 1px solid var(--separator-color);
+}
+
+.calendar .day-label,
+.calendar .month-label,
+.calendar .date-label,
+.calendar .week-label,
+.calendar .holiday-label {
+    font-size: var(--text-lg);
+    min-width: 250px;
+    max-width: 270px;
+    background-color: transparent !important;
+}
+
+.calendar .week-label {
+    font-weight: var(--font-bold);
+    color: var(--text-secondary);
+}
+
+.calendar .holiday-label {
+    color: var(--text-primary);
+    font-weight: var(--font-bold);
+}
+
+.calendar .date-label {
+    font-size: 89px;
+    font-weight: 800;
+    margin-top: -12px;
+    color: var(--text-primary);
+    background-color: transparent !important;
+}
+
+/* Volume Popup */
+.volume-slider {
+    padding: 8px;
+}
+
+.audio-container .device {
+    padding: 8px;
+    margin: 2px 0;
+    border: 1px solid transparent;
+}
+
+.audio-container .device.selected {
+    background-color: var(--bg-hover);
+    border: 1px solid var(--separator-color);
+}
+
+/* ==========================================================================
+   WI-FI MENU (Sizing restored to original 375x375 dimensions)
+   ========================================================================== */
+
+.wifi-menu,
+QWidget.wifi-menu,
+QMenu.wifi-menu {
+    max-height: 350px !important;
+    min-height: 375px !important;
+    min-width: 375px !important;
+}
+
+.wifi-menu .progress-bar {
+    max-height: 2px;
+    color: var(--accent-color);
+}
+
+.wifi-menu .header {
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    margin-bottom: 2px;
+    padding: 12px;
+    background-color: transparent;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--separator-color);
+}
+
+.wifi-menu .error-message {
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    margin-bottom: 2px;
+    padding: 12px;
+    background-color: var(--color-bad);
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--separator-color);
+}
+
+.wifi-menu .wifi-list {
+    background-color: transparent;
+    margin-right: 4px;
+}
+
+.wifi-menu .wifi-item {
+    min-height: 35px;
+    padding: 2px 12px;
+    margin: 2px 4px;
+    border-radius: 4px;
+    background-color: transparent;
+}
+
+.wifi-menu .wifi-item:hover {
+    background-color: var(--bg-hover);
+}
+
+.wifi-menu .wifi-item[active=true] {
+    background-color: var(--bg-hover);
+    border: 1px solid var(--separator-color);
+    font-size: var(--text-lg);
+    min-height: 80px;
+}
+
+.wifi-menu .wifi-item .icon {
+    font-family: 'Segoe Fluent Icons';
+    font-size: 26px;
+    margin-right: 4px;
+    color: var(--text-primary);
+}
+
+.wifi-menu .wifi-item .name {
+    font-size: var(--text-lg);
+    margin-right: 4px;
+    color: var(--text-primary);
+}
+
+.wifi-menu .wifi-item .password {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--separator-color);
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-size: var(--text-lg);
+    padding: 4px 8px;
+}
+
+.wifi-menu .wifi-item .status,
+.wifi-menu .wifi-item .strength {
+    font-size: var(--text-normal);
+    color: var(--text-secondary);
+}
+
+.wifi-menu .wifi-item .controls-container {
+    padding-top: 8px;
+}
+
+.wifi-menu .wifi-item .connect {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--separator-color);
+    border-radius: 4px;
+    color: var(--text-primary);
+    padding: 4px 30px;
+    font-size: var(--text-lg);
+}
+
+.wifi-menu .wifi-item .connect:hover {
+    background-color: var(--bg-hover);
+}
+
+.wifi-menu .wifi-item .connect:pressed {
+    background-color: var(--separator-color);
+}
+
+.wifi-menu .footer {
+    font-size: var(--text-small);
+    font-weight: var(--font-bold);
+    padding: 12px;
+    margin-top: 2px;
+    color: var(--text-secondary);
+    background-color: transparent;
+    border-top: 1px solid var(--separator-color);
+}
+
+.wifi-menu .footer .settings-button,
+.wifi-menu .footer .refresh-icon {
+    background-color: transparent;
+    border: none;
+    border-radius: 4px;
+    min-width: 26px;
+    min-height: 26px;
+    color: var(--text-primary);
+}
+
+.wifi-menu .footer .settings-button:hover,
+.wifi-menu .footer .refresh-icon:hover {
+    background-color: var(--bg-hover);
+}
+
+/* Taskbar Internal Container */
+.taskbar-widget .app-container {
+    padding: 0 7px;
+    margin: 0 1px;
+}
+
+.taskbar-widget .app-container:hover {
+    background-color: var(--bg-hover);
+    border-radius: 6px;
+}
+
+.taskbar-widget .app-container.foreground {
+    background-color: var(--bg-active);
+    border-radius: 6px;
+}
+
+.taskbar-widget .app-container.flashing {
+    background-color: var(--color-bad);
+}
+
+.taskbar-widget .app-container .app-title {
+    padding-left: 4px;
+}
+
+.app-count {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.taskbar-preview {
+    background-color: var(--bg-taskbar-menu-primary);
+    border: 1px solid var(--separator-color);
+    border-radius: 6px;
+}
+
+.taskbar-preview .header {
+    padding-bottom: 12px;
+    padding-top: 8px;
+}
+
+.taskbar-preview .header .title {
+    font-weight: var(--font-bold);
+}
+
+/* Systray */
+.systray .unpinned-container {
+    margin: 0px;
+    padding: 0 4px;
+    border-right: 1px solid var(--separator-color);
+}
+
+.systray .pinned-container {
+    padding: 0 4px;
+}
+
+.systray .button {
+    padding: 2px;
+    outline: none;
+}
+
+.systray .button:hover {
+    background-color: var(--bg-hover);
+}
+
+.systray .button[dragging="true"] {
+    background-color: var(--bg-hover);
+    border: 1px solid var(--color-good);
+}
+
+.systray .unpinned-visibility-btn {
+    height: 20px;
+    width: 16px;
+    outline: none;
+}
