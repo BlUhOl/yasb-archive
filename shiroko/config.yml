@@ -1,0 +1,293 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/amnweb/yasb/main/schema.json
+watch_stylesheet: true
+watch_config: true
+debug: false
+bars:
+  status-bar:
+    enabled: true
+    screens: ["*"]
+    class_name: "yasb-bar"
+    alignment:
+      position: "top"
+    blur_effect:
+      enabled: true
+      dark_mode: true
+      border_color: "System"
+    window_flags:
+      always_on_top: false
+      windows_app_bar: true
+    dimensions:
+      width: "100%"
+      height: 28
+    widgets:
+      left: ["home", "taskbar", "media"]
+      center: ["clock"]
+      right: ["volume", "systray", "language", "wifi", "battery", "notifications"]
+    
+widgets:
+  home:
+    type: "yasb.home.HomeWidget"
+    options:
+      label: "<span>\ue70f</span>"
+      keybindings:
+        - keys: "alt+h"
+          action: "toggle_menu"
+          screen: active
+      menu_labels:
+        about: "\uf449  About This PC"
+        system: "\U000F0493  System Settings"
+        task_manager: "\ueb03  Task Manager"
+      menu_list:
+        - { title: "\uf25d  Registry Editor", path: "C:\\Windows\\regedit.exe" }
+        - { title: "\uF15C  Event Viewer", path: "C:\\Windows\\System32\\eventvwr.msc" }
+        - { title: "\uF2DB  Device Manager", path: "C:\\Windows\\System32\\devmgmt.msc" }
+        - { title: "\uF085  Services", path: "C:\\Windows\\System32\\services.msc" }
+        - { title: "\uF200  Resource Monitor", path: "explorer.exe shell:RecycleBinFolder" }
+        - { title: "\uF014  Add/Remove Programs", path: "C:\\Windows\\System32\\appwiz.cpl" }
+      system_menu: true
+      power_menu: false
+      blur: true
+      border_color: "System"
+      round_corners_type: "normal"
+
+  wifi:
+    type: "yasb.wifi.WifiWidget"
+    options:
+      label: "<span>{wifi_icon}</span>"
+      label_alt: "{wifi_name} {wifi_strength}%"
+      update_interval: 5000
+      callbacks:
+        on_left: "toggle_menu"
+        on_middle: "exec cmd.exe /c start ms-settings:network"
+        on_right: "toggle_label"
+      ethernet_label: "<span>{wifi_icon}</span>"
+      ethernet_label_alt: "<span>{wifi_icon}</span>{ip_addr}"
+      ethernet_icon: "\ueba9"
+      get_exact_wifi_strength: false
+      wifi_icons: [
+          "\udb82\udd2e",
+          "\udb82\udd1f",
+          "\udb82\udd22",
+          "\udb82\udd25",
+          "\udb82\udd28",
+        ]
+    menu_config:
+      blur: true
+      round_corners: false
+      round_corners_type: "none"
+      border_color: "System"
+      alignment: "right"
+      direction: "down"
+      offset_top: 6
+      offset_left: 0
+      wifi_icons_secured: ["\ue670", "\ue671", "\ue672", "\ue673"]
+      wifi_icons_unsecured: ["\uec3c", "\uec3d", "\uec3e", "\uec3f"]
+
+  battery:
+    type: "yasb.battery.BatteryWidget"
+    options:
+      label: "<span>{icon}</span> {percent}%"
+      label_alt: "<span>{icon}</span> {percent}% | {power}W | {time_remaining}"
+      update_interval: 5000
+      time_remaining_natural: False
+      hide_unsupported: True
+      charging_options:
+        icon_format: "{charging_icon}"
+        blink_charging_icon: true
+        blink_interval: 500
+      status_thresholds:
+        critical: 10
+        low: 25
+        medium: 75
+        high: 95
+        full: 100
+      status_icons:
+        icon_charging: "\uf0e7"
+        icon_critical: "\uf244"
+        icon_low: "\uf243"
+        icon_medium: "\uf242"
+        icon_high: "\uf241"
+        icon_full: "\uf240"
+
+  clock:
+    type: "yasb.clock.ClockWidget"
+    options:
+      keybindings:
+        - keys: "alt+c"
+          action: "toggle_calendar"
+          screen: active
+      label: "{%a %d %b %H:%M}"
+      label_alt: "{%A, %d %B %Y, %H:%M}"
+      locale: "cz_CZ"
+      timezones: ["Indonesia/Jakarta"]
+      callbacks:
+        on_middle: "next_timezone"
+        on_right: "exec cmd.exe /c start ms-clock:"
+      calendar:
+        blur: true
+        round_corners: false
+        round_corners_type: "normal"
+        border_color: "System"
+        alignment: "center"
+        direction: "down"
+        show_holidays: true
+        show_week_numbers: true
+        country_code: "id"
+        holiday_color: "#FF6464"
+
+  volume:
+    type: "yasb.volume.VolumeWidget"
+    options:
+      keybindings:
+        - keys: "alt+v"
+          action: "toggle_volume_menu"
+          screen: active
+      label: "{icon} {level}"
+      tooltip: true
+      icons:
+        - "\uEEE8"
+        - "\uF026"
+        - "\uF027"
+        - "\uF027"
+        - "\uF028"
+      callbacks:
+        on_middle: "toggle_mute"
+        on_right: "exec cmd.exe /c start ms-settings:sound"
+      audio_menu:
+        blur: true
+        round_corners: false
+        round_corners_type: "normal"
+        border_color: "System"
+        alignment: "center"
+        direction: "down"
+
+  notifications:
+    type: "yasb.notifications.NotificationsWidget"
+    options:
+      label: "<span>\U000F0D59</span> {count}"
+      tooltip: false
+      callbacks:
+        on_left: "toggle_notification"
+        on_right: "do_nothing"
+        on_middle: "do_nothing"
+
+  media:
+    type: "yasb.media.MediaWidget"
+    options:
+      keybindings:
+        - keys: "alt+m"
+          action: "toggle_play_pause"
+          screen: active
+      label: "{title} - {artist}"
+      hide_empty: true
+      callbacks:
+        on_left: "toggle_media_menu"
+        on_middle: "do_nothing"
+        on_right: "do_nothing"
+      max_field_size:
+        label: 20
+        label_alt: 20
+      show_thumbnail: false
+      controls_only: false
+      controls_left: true
+      controls_hide: false
+      thumbnail_alpha: 80
+      thumbnail_padding: 8
+      thumbnail_corner_radius: 16
+      icons:
+        prev_track: "\uF048"
+        next_track: "\uF051"
+        play: "\uF04B"
+        pause: "\uF04C"
+      media_menu:
+        blur: true
+        round_corners: false
+        round_corners_type: "normal"
+        border_color: "system"
+        alignment: "center"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+        thumbnail_corner_radius: 8
+        thumbnail_size: 120
+        max_title_size: 90
+        max_artist_size: 40
+        show_source: true
+        show_volume_slider: true
+      media_menu_icons:
+        play: "\uF04B"
+        pause: "\uF04C"
+        prev_track: "\uF048"
+        next_track: "\uF051"
+      scrolling_label:
+        enabled: false
+        update_interval_ms: 13
+        style: "left" # can be "left", "right", "bounce", "bounce-ease"
+        separator: "    |    "
+        label_padding: 10
+    
+
+  taskbar:
+    type: "yasb.taskbar.TaskbarWidget"
+    options:
+      grouping:
+        enabled: true
+        show_count: true
+      icon_size: 16
+      tooltip: true
+      show_only_visible: false
+      strict_filtering: false
+      monitor_exclusive: false
+      animation:
+        enabled: true
+      preview:
+        enabled: true
+        width: 450
+        delay: 150
+        padding: 6
+        blur: true
+      ignore_apps:
+        processes: []
+        titles: []
+        classes: []
+
+  systray:
+    type: "yasb.systray.SystrayWidget"
+    options:
+      class_name: "systray"
+      label_collapsed: "\u25C0"
+      label_expanded: "\u25B6"
+      label_position: "right"
+      icon_size: 16
+      pin_click_modifier: "alt"
+      show_unpinned: false
+      show_unpinned_button: true
+      show_battery: false
+      show_volume: false
+      show_network: true
+
+  language:
+    type: "yasb.language.LanguageWidget"
+    options:
+      keybindings:
+        - keys: "alt+k"
+          action: "toggle_menu"
+          screen: active
+      label: "{lang[language_code]}-{lang[country_code]}"
+      label_alt: "{lang[full_name]}"
+      update_interval: 5
+      callbacks:
+        on_left: "toggle_menu"
+        on_middle: "do_nothing"
+        on_right: "toggle_label"
+      language_menu:
+        blur: true
+        round_corners: false
+        round_corners_type: "normal"
+        border_color: "system"
+        alignment: "right"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+        show_layout_icon: true
+        layout_icon: "\uf11c"
